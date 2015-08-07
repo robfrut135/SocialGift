@@ -1,0 +1,68 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"    
+    >
+    <TextView
+        android:id="@+id/title_givers_list"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="5dip"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="Top Givers"
+        android:textSize="20dip"
+        android:typeface="sans" />
+
+    <RelativeLayout android:id="@+id/rl_country_heading"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#555555">
+        <TextView android:id="@+id/tv_11"
+            android:layout_width="150dip"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="User"
+            android:textStyle="normal"
+            android:textColor="#FFFFFF"
+            android:textSize="16dip">
+        </TextView>
+        <TextView android:id="@+id/tv_12"
+            android:layout_width="70dip"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Likes"
+            android:textStyle="normal"
+            android:textColor="#FFFFFF"
+            android:textSize="16dip"
+            android:layout_toRightOf="@+id/tv_11">
+        </TextView>
+
+        <TextView
+            android:id="@+id/tv_13"
+            android:layout_width="70dip"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/tv_12"
+            android:gravity="center"
+            android:text="Obscenes"
+            android:textColor="#FFFFFF"
+            android:textSize="16dip"
+            android:textStyle="normal" >
+
+        </TextView>
+    </RelativeLayout>
+    <LinearLayout android:id="@+id/ll_country"
+        android:layout_height="fill_parent" android:layout_width="fill_parent">
+        <ScrollView android:id="@+id/ScrollView11"
+            android:layout_width="fill_parent" android:layout_height="fill_parent"
+            android:fillViewport="true">
+            <LinearLayout android:layout_width="fill_parent"
+                android:layout_height="wrap_content" android:layout_margin="5dip">
+                <TableLayout  android:layout_width="fill_parent" android:layout_height="fill_parent"
+                    android:stretchColumns="0,1" android:id="@+id/list_of_things">
+                </TableLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</LinearLayout>
+<!-- From: file:/D:/EclipseWorkspaceAndroid/PotlachClient/res/layout/activity_givers_list.xml -->

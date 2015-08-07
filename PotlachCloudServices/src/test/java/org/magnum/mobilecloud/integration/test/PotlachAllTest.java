@@ -1,0 +1,402 @@
+package org.magnum.mobilecloud.integration.test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpStatus;
+import org.junit.Before;
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+import org.mobilecloud.capstone.potlach.common.TestUtils;
+import org.mobilecloud.capstone.potlach.common.api.FlagSvcApi;
+import org.mobilecloud.capstone.potlach.common.api.GiftSvcApi;
+import org.mobilecloud.capstone.potlach.common.api.OauthSvcApi;
+import org.mobilecloud.capstone.potlach.common.api.UserSvcApi;
+import org.mobilecloud.capstone.potlach.common.client.SecuredRestBuilder;
+import org.mobilecloud.capstone.potlach.common.client.UnsafeHttpsClient;
+import org.mobilecloud.capstone.potlach.common.repository.Flag;
+import org.mobilecloud.capstone.potlach.common.repository.Gift;
+import org.mobilecloud.capstone.potlach.common.repository.GiftStatus;
+import org.mobilecloud.capstone.potlach.common.repository.GiversInfo;
+import org.mobilecloud.capstone.potlach.common.repository.Flag.FlagType;
+import org.mobilecloud.capstone.potlach.common.repository.GiftStatus.GiftState;
+import org.mobilecloud.capstone.potlach.common.repository.User;
+import org.mobilecloud.capstone.potlach.common.repository.User.FrecuencyUpdates;
+import org.mobilecloud.capstone.potlach.common.repository.User.OrderType;
+
+import retrofit.ErrorHandler;
+import retrofit.RestAdapter;
+import retrofit.RestAdapter.LogLevel;
+import retrofit.RetrofitError;
+import retrofit.client.ApacheClient;
+import retrofit.client.Response;
+import retrofit.mime.TypedFile;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class PotlachAllTest {
+
+	private class ErrorRecorder implements ErrorHandler {
+
+		private RetrofitError error;
+
+		@Override
+		public Throwable handleError(RetrofitError cause) {
+			error = cause;
+			return error.getCause();
+		}
+
+		public RetrofitError getError() {
+			return error;
+		}
+	}
+	
+	private File testGiftData 			= new File("src/test/resources/video1");
+
+	private final String SERVER 		= "https://127.0.0.1:8443";
+
+	private final String USERNAME1 		= "user_test_1";
+	private final String USERNAME2 		= "user_test_2";
+	private final String USERNAME3 		= "user_test_login";
+	private final String PASSWORD 		= "pass";
+	private final String CLIENT_ID 		= "mobile";
+	
+	private final User user_test_1 		= new User("Pedro", USERNAME1, PASSWORD);
+	private final User user_test_2 		= new User("Juan", USERNAME2, PASSWORD);
+	private final User user_test_login 	= new User("Marco", USERNAME3, PASSWORD);	
+
+	/*
+	 * OAUTH CLIENT
+	 */
+	private GiftSvcApi readWriteGiftSvcUser1 = new SecuredRestBuilder()
+			.setClient(new ApacheClient(UnsafeHttpsClient.createUnsafeClient()))
+			.setEndpoint(SERVER)
+			.setLoginEndpoint(SERVER + OauthSvcApi.TOKEN_PATH)
+			.setLogLevel(LogLevel.FULL)
+			.setUsername(user_test_1.getUsername()).setPassword(user_test_1.getPassword()).setClientId(CLIENT_ID)
+			.build().create(GiftSvcApi.class);
+	/*
+	 * OAUTH CLIENT
+	 */
+	private GiftSvcApi readWriteGiftSvcUser2 = new SecuredRestBuilder()
+			.setClient(new ApacheClient(UnsafeHttpsClient.createUnsafeClient()))
+			.setEndpoint(SERVER)
+			.setLoginEndpoint(SERVER + OauthSvcApi.TOKEN_PATH)
+			.setLogLevel(LogLevel.FULL)
+			.setUsername(user_test_2.getUsername()).setPassword(user_test_2.getPassword()).setClientId(CLIENT_ID)
+			.build().create(GiftSvcApi.class);
+	/*
+	 * OAUTH CLIENT
+	 */
+	private FlagSvcApi readWriteFlagSvcApi = new SecuredRestBuilder()
+			.setClient(new ApacheClient(UnsafeHttpsClient.createUnsafeClient()))
+			.setEndpoint(SERVER)
+			.setLoginEndpoint(SERVER + OauthSvcApi.TOKEN_PATH)
+			.setLogLevel(LogLevel.FULL)
+			.setUsername(user_test_1.getUsername()).setPassword(user_test_1.getPassword()).setClientId(CLIENT_ID)
+			.build().create(FlagSvcApi.class);
+	/* 
+	 * HTTPS CLIENT 
+	 */
+	private UserSvcApi userSvcPublic = new RestAdapter.Builder()
+			.setClient(new ApacheClient(UnsafeHttpsClient.createUnsafeClient()))
+			.setEndpoint(SERVER)
+			.setLogLevel(LogLevel.FULL)	
+			.build().create(UserSvcApi.class);
+		
+	
+	private Gift gift = TestUtils.randomGift(testGiftData);	
+	
+	@Before
+	public void setUserProperties(){
+		user_test_1.setFrecuencyUpdateFlags(FrecuencyUpdates.HOUR);
+		user_test_1.setViewInappropiatedGift(false);
+		user_test_1.setOrderByGifts(OrderType.DATE);
+		
+		user_test_2.setFrecuencyUpdateFlags(FrecuencyUpdates.MINUTE);
+		user_test_2.setViewInappropiatedGift(true);
+		user_test_2.setOrderByGifts(OrderType.DATE);
+		
+		user_test_login.setFrecuencyUpdateFlags(FrecuencyUpdates.FIVE_MINUTES);
+		user_test_login.setViewInappropiatedGift(true);
+		user_test_login.setOrderByGifts(OrderType.MOST_TOUCHED);
+	}
+	
+	@Test
+	public void testAAAACreateUsers(){
+						
+		User receivedUser1 = userSvcPublic.addUser(user_test_1);
+		assertTrue(receivedUser1.getId().length() > 0);
+		
+		User receivedUser2 = userSvcPublic.addUser(user_test_2);
+		assertTrue(receivedUser2.getId().length() > 0);
+	}
+	
+	@Test
+	public void testTopGivers(){
+						
+		Collection<GiversInfo> giversInfo = readWriteFlagSvcApi.getUserGiversInfo();
+		assertTrue(giversInfo.size() > 0);			
+	}
+	
+	@Test
+	public void testLoginUser(){
+						
+		//failed
+		try{
+			userSvcPublic.login(user_test_login.getUsername(), user_test_login.getPassword());
+			
+			fail("Login permitido a NO USUARIO, esperado 400");
+		} catch (RetrofitError e) {			
+			assertEquals(400, e.getResponse().getStatus());
+		}
+		
+		//OK		
+		User receivedUser1 = userSvcPublic.login(user_test_1.getUsername(), user_test_1.getPassword());
+		assertTrue(receivedUser1.getId().length()>0);		
+	}	
+	
+	@Test
+	public void testAddGiftMetadata() throws Exception {
+		Gift received = readWriteGiftSvcUser1.addGift(gift);
+		assertEquals(gift.getTitle(), received.getTitle());		
+//		assertTrue(received.getTouchedCounter() == 0);
+		assertTrue(received.getId().length() > 0);
+	}
+
+	@Test
+	public void testAddGetGift() throws Exception {
+		readWriteGiftSvcUser1.addGift(gift);
+		Collection<Gift> stored = readWriteGiftSvcUser1.getGiftList();	
+		assertTrue(stored.contains(gift));
+	}
+
+	@Test
+	public void testDenyGiftAddWithoutOAuth() throws Exception {
+		ErrorRecorder error = new ErrorRecorder();
+
+		// Create an insecure version of our Rest Adapter that doesn't know how
+		// to use OAuth.
+		GiftSvcApi insecurevideoService = new RestAdapter.Builder()
+				.setClient(
+						new ApacheClient(UnsafeHttpsClient.createUnsafeClient()))
+				.setEndpoint(SERVER).setLogLevel(LogLevel.FULL)
+				.setErrorHandler(error).build().create(GiftSvcApi.class);
+		try {
+			// This should fail because we haven't logged in!
+			insecurevideoService.addGift(gift);
+
+			fail("Yikes, the security setup is horribly broken and didn't require the user to authenticate!!");
+
+		} catch (Exception e) {
+			// Ok, our security may have worked, ensure that
+			// we got a 401
+			assertEquals(HttpStatus.SC_UNAUTHORIZED, error.getError()
+					.getResponse().getStatus());
+		}
+
+		// We should NOT get back the gift that we added above!
+		Collection<Gift> gifts = readWriteGiftSvcUser1.getGiftList();
+		assertFalse(gifts.contains(gift));
+	}
+
+	@Test
+	public void testLikeCount() throws Exception {
+
+		// Add the gift
+		Gift v = readWriteGiftSvcUser1.addGift(gift);
+
+		// Like the gift
+		readWriteGiftSvcUser1.likeGift(v.getId());
+
+
+		Collection<Flag> flags = readWriteFlagSvcApi.findFlagByGiftAndType(v.getId(), FlagType.TOUCH);
+		assertTrue(flags.size()==1);
+		
+		// Unlike the gift
+		readWriteGiftSvcUser1.unlikeGift(v.getId());
+
+		flags = readWriteFlagSvcApi.findFlagByGiftAndType(v.getId(), FlagType.TOUCH);
+		assertTrue(flags.size()==0);		
+
+		readWriteGiftSvcUser1.likeGift(v.getId());
+		
+		readWriteGiftSvcUser2.likeGift(v.getId());
+		
+		flags = readWriteFlagSvcApi.findFlagByGiftAndType(v.getId(), FlagType.TOUCH);
+		assertTrue(flags.size()==2);
+	}
+	
+	@Test
+	public void testLikedBy() throws Exception {
+
+		// Add the gift
+		Gift v = readWriteGiftSvcUser1.addGift(gift);
+
+		// Like the gift
+		readWriteGiftSvcUser1.likeGift(v.getId());
+
+		Collection<User> likedby = readWriteGiftSvcUser1.whoLikedGift(v.getId());
+
+		// Make sure we're on the list of people that like this gift
+		assertTrue(likedby.contains(user_test_1));
+		
+		// Have the second user like the gift
+		readWriteGiftSvcUser2.likeGift(v.getId());
+		
+		// Make sure both users show up in the like list
+		likedby = readWriteGiftSvcUser1.whoLikedGift(v.getId());
+		assertTrue(likedby.contains(user_test_1));
+		assertTrue(likedby.contains(user_test_2));
+
+		// Unlike the gift
+		readWriteGiftSvcUser1.unlikeGift(v.getId());
+
+		// Get the gift again
+		likedby = readWriteGiftSvcUser1.whoLikedGift(v.getId());
+
+		// Make sure user1 is not on the list of people that liked this gift
+		assertTrue(!likedby.contains(user_test_1));
+		
+		// Make sure that user 2 is still there
+		assertTrue(likedby.contains(user_test_2));
+	}
+
+	@Test
+	public void testLikingTwice() throws Exception {
+
+		// Add the gift
+		Gift v = readWriteGiftSvcUser1.addGift(gift);
+
+		// Like the gift
+		readWriteGiftSvcUser1.likeGift(v.getId());
+
+		Collection<User> users = readWriteGiftSvcUser1.whoLikedGift(v.getId());		
+		assertTrue(users.contains(user_test_1));
+
+		try {
+			// Like the gift again.
+			readWriteGiftSvcUser1.likeGift(v.getId());
+
+			fail("The server let us like a gift twice without returning a 400");
+		} catch (RetrofitError e) {
+			// Make sure we got a 400 Bad Request
+			assertEquals(400, e.getResponse().getStatus());
+		}
+	}
+
+	@Test
+	public void testLikingNonExistantGift() throws Exception {
+
+		try {
+			// Like the gift again.
+			readWriteGiftSvcUser1.likeGift(getInvalidGiftId());
+
+			fail("The server let us like a gift that doesn't exist without returning a 404.");
+		} catch (RetrofitError e) {
+			// Make sure we got a 400 Bad Request
+			assertEquals(404, e.getResponse().getStatus());
+		}
+	}
+
+	@Test
+	public void testFindByTitle() {
+
+		// Create the names unique for testing.
+		String[] names = new String[3];
+		names[0] = "The Cat";
+		names[1] = "The Spoon The Cat Joder";
+		names[2] = "The Plate";
+
+		// Create three random videos, but use the unique names
+		ArrayList<Gift> gifts = new ArrayList<Gift>();
+
+		for (int i = 0; i < names.length; ++i) {
+			Gift v = TestUtils.randomGift(testGiftData);				
+			v.setTitle(names[i]);			
+			gifts.add(v);
+		}
+
+		// Add all the videos to the server
+		for (Gift v : gifts){
+			readWriteGiftSvcUser1.addGift(v);
+		}
+
+		// Search for "The Cat"
+		Collection<Gift> searchResults = readWriteGiftSvcUser1.findGiftByTitle(names[0]);
+		assertTrue(searchResults.size() > 0);
+
+		// Make sure all the returned videos have "The Cat" for their title
+		for (Gift v : searchResults) {
+			assertTrue(v.getTitle().contains(names[0]));
+		}
+	}
+	
+	@Test
+	public void testAddGiftData() throws Exception {
+		Gift received = readWriteGiftSvcUser1.addGift(gift);
+		GiftStatus status = readWriteGiftSvcUser1.setGiftData(received.getId(),
+				new TypedFile(received.getContentType(), testGiftData));
+		assertEquals(GiftState.READY, status.getState());
+		
+		Response response = readWriteGiftSvcUser1.getData(received.getId());
+		assertEquals(200, response.getStatus());
+		
+		InputStream videoData = response.getBody().in();
+		byte[] originalFile = IOUtils.toByteArray(new FileInputStream(testGiftData));
+		byte[] retrievedFile = IOUtils.toByteArray(videoData);
+		assertTrue(Arrays.equals(originalFile, retrievedFile));
+	}
+	
+	@Test
+	public void testGetNonExistantGiftsData() throws Exception {
+		
+		String nonExistantId = getInvalidGiftId();
+		
+		try{
+			Response r = readWriteGiftSvcUser1.getData(nonExistantId);
+			assertEquals(404, r.getStatus());
+		}catch(RetrofitError e){
+			assertEquals(404, e.getResponse().getStatus());
+		}
+	}
+	
+	@Test
+	public void testAddNonExistantGiftsData() throws Exception {
+		String nonExistantId = getInvalidGiftId();
+		try{
+			readWriteGiftSvcUser1.setGiftData(nonExistantId, new TypedFile(gift.getContentType(), testGiftData));
+			fail("The client should receive a 404 error code and throw an exception if an invalid"
+					+ " gift ID is provided in setGiftData()");
+		}catch(RetrofitError e){
+			assertEquals(404, e.getResponse().getStatus());
+		}
+	}
+
+	private String getInvalidGiftId() {
+		Set<String> ids = new HashSet<String>();
+		Collection<Gift> stored = readWriteGiftSvcUser1.getGiftList();
+		for (Gift v : stored) {
+			ids.add(v.getId());
+		}
+
+		long nonExistantId = Long.MIN_VALUE;
+		while (ids.contains(nonExistantId)) {
+			nonExistantId++;
+		}
+		return String.valueOf(nonExistantId);
+	}
+
+}

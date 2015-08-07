@@ -1,0 +1,18 @@
+package org.mobilecloud.capstone.potlach.cloudservices.repository;
+
+import org.mobilecloud.capstone.potlach.common.api.UserSvcApi;
+import org.mobilecloud.capstone.potlach.common.repository.User;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+
+import retrofit.http.Query;
+
+@RepositoryRestResource(path = UserSvcApi.USER_SVC_PATH)
+public interface UserRepository extends MongoRepository<User, String>{
+
+	// Find all user with a matching title (e.g., User.username)
+	public User findUserByUsername(@Query(UserSvcApi.USERNAME_PARAMETER) String username);
+	
+	public User findUserByUsernameAndPassword(@Query(UserSvcApi.USERNAME_PARAMETER) String username,
+											  @Query(UserSvcApi.PASSWORD_PARAMETER) String password);
+}

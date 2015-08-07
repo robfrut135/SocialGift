@@ -1,0 +1,138 @@
+package org.mobilecloud.capstone.potlach.common.repository;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.base.Objects;
+
+@Entity
+public class Gift {
+	
+	@Id
+	private String id;
+
+	private String title;
+	private String description;		
+	private String contentType;				
+	private long dateRegister;
+	
+	@JsonIgnore
+	private String multimediaUrl;
+		
+	private String chain;
+		
+	private String user;
+		
+	@ElementCollection
+	private Set<String> flags = new HashSet<String>();
+	
+	public Gift() {
+	}
+	
+	public Gift(String name, String desc, String contentType) {
+		super();
+		this.title = name;
+		this.description = desc;	
+		this.contentType = contentType;
+		this.dateRegister = new Date().getTime();
+	}	
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String name) {
+		this.title = name;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	@JsonProperty
+	public String getMultimediaUrl() {
+		return multimediaUrl;
+	}
+
+	@JsonIgnore
+	public void setMultimediaUrl(String imageUrl) {
+		this.multimediaUrl = imageUrl;
+	}
+	
+	public String getContentType() {
+		return contentType;
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
+
+	public String getChain() {
+		return chain;
+	}
+
+	public void setChain(String chain) {
+		this.chain = chain;
+	}
+
+	public Set<String> getFlags() {
+		return flags;
+	}
+
+	public void setFlags(Set<String> flags) {
+		this.flags = flags;
+	}	
+	
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String string) {
+		this.user = string;
+	}		
+
+	public long getDateRegister() {
+		return dateRegister;
+	}
+
+	public void setDateRegister(long dateRegister) {
+		this.dateRegister = dateRegister;
+	}	
+
+	@Override
+	public int hashCode() {		
+		return Objects.hashCode(title, description, multimediaUrl);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Gift) {
+			Gift other = (Gift) obj;			
+			return Objects.equal(title, other.title)
+					&& Objects.equal(contentType, other.contentType)
+					&& Objects.equal(user, other.user)					
+					&& Objects.equal(description, other.description);
+		} else {
+			return false;
+		}
+	}
+}

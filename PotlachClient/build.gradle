@@ -1,0 +1,103 @@
+buildscript {
+	repositories {		
+		mavenCentral()	
+		maven { url "http://maven.springframework.org/milestone" }	        
+	}
+	dependencies {
+		classpath 'com.android.tools.build:gradle:0.14.0'		
+	}	
+}
+
+repositories {		
+	mavenCentral()	
+	maven { url "http://maven.springframework.org/milestone" }	        
+}
+	
+apply plugin: 'com.android.application'
+
+dependencies {
+	//common
+	compile project(":PotlachCommon")
+	//libs: support-v4 y butterknife-6
+    compile fileTree(dir: 'libs', include: '*.jar')   
+    
+    compile 'org.apache.httpcomponents:httpclient-android:4.3.5' 
+    compile 'javax.activation:activation:1.1'
+}
+
+configurations {    
+    compile.exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+    compile.exclude group: 'commons-logging', module: 'commons-logging'
+} 
+
+android {
+	compileSdkVersion 21
+    buildToolsVersion "21.1.0"
+	
+	sourceSets {
+		main {
+			manifest {
+				srcFile 'AndroidManifest.xml'
+			}
+			java {
+				srcDir 'src'
+			}
+			res {
+				srcDir 'res'
+			}
+			assets {
+				srcDir 'assets'
+			}
+			resources {
+				srcDir 'src'
+			}
+			aidl {
+				srcDir 'src'
+			}
+		}
+	}
+	
+	defaultConfig {       
+        minSdkVersion 21
+        targetSdkVersion 21        
+       	multiDexEnabled true
+    }
+    
+    lintOptions {
+	  disable 'InvalidPackage'
+	}
+	
+	packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'        
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'                
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+        exclude 'META-INF/services/com.fasterxml.jackson.core.ObjectCodec'
+        exclude 'META-INF/services/com.fasterxml.jackson.core.JsonFactory'
+        exclude 'META-INF/eclipse.inf'
+        exclude 'LICENSE.html'
+        exclude 'license.html'
+        exclude 'README.html'
+        exclude 'readme.html'
+    }
+    
+    signingConfigs {
+        release {
+            storeFile file("keystore")
+            storePassword "changeit"
+            keyAlias "tomcat"
+            keyPassword "changeit"
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+}

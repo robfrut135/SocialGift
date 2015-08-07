@@ -1,0 +1,51 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.mobilecloud.capstone.potlach.client"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+   	<uses-permission android:name="android.permission.CAMERA" />
+  	<uses-feature android:name="android.hardware.camera" />
+  	<uses-feature android:name="android.hardware.camera.autofocus" />
+  	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />   
+    
+    <uses-sdk
+        android:minSdkVersion="21"
+        android:targetSdkVersion="21" />
+    <application 
+        android:allowBackup="true" 
+        android:icon="@drawable/ic_launcher" 
+        android:label="@string/app_name" 
+        android:theme="@style/AppTheme" 
+        android:name=".PotlachApp">
+        
+        <activity android:label="@string/app_name" android:name=".LoginScreenActivity" android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+        	</intent-filter>      
+        </activity>
+        <activity android:label="@string/app_name" android:name=".GiftListActivity" android:windowSoftInputMode="stateHidden">	      
+	    </activity>
+	    <activity android:label="@string/app_name" android:name=".GiftActivity" android:windowSoftInputMode="stateHidden">	   
+	    </activity>
+	    <activity android:label="@string/app_name" android:name=".RegisterActivity" android:windowSoftInputMode="stateHidden">	   
+	    </activity>
+	    <activity android:label="@string/app_name" android:name=".SettingsActivity" android:windowSoftInputMode="stateHidden">	   
+	    </activity>
+	    <activity android:label="@string/app_name" android:name=".ChainActivity">	   
+	    </activity>
+	   	<activity android:label="@string/app_name" android:name=".GiftGiversListActivity">	   
+	    </activity>
+	    <activity android:label="@string/app_name" android:name=".UserGiversListActivity">	   
+	    </activity>
+	    <activity android:label="@string/app_name" android:name=".VideoStreamingActivity">	   
+	    </activity>
+	    
+	     <service android:name=".ThreadPoolDownloadService" android:process=":myProcessThreadPoolDownloadService"/>
+	     
+	     <receiver android:name=".UpdatesReceiver"/>	     	     
+	</application>
+
+</manifest>

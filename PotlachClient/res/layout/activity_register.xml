@@ -1,0 +1,145 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    
+	<RelativeLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"	    
+	    android:paddingBottom="@dimen/activity_vertical_margin"
+	    android:paddingLeft="@dimen/activity_horizontal_margin"
+	    android:paddingRight="@dimen/activity_horizontal_margin"
+	    android:paddingTop="@dimen/activity_vertical_margin">
+	
+	    <TextView
+	        android:id="@+id/textView1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_alignParentTop="true"
+	        android:layout_marginRight="52dp"
+	        android:text="@string/register_title"
+	        android:textSize="20sp" />
+	
+	    <EditText
+	        android:id="@+id/name"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/textView1"
+	        android:layout_centerHorizontal="true"
+	        android:layout_marginTop="18dp"
+	        android:ems="10"
+	        android:hint="@string/name"
+	        android:textSize="16sp" />
+	    
+	    <EditText
+	        android:id="@+id/userName"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/name"
+	        android:layout_below="@+id/name"
+	        android:ems="10"
+	        android:hint="@string/userName"
+	        android:textSize="16sp" />
+	
+	    <EditText
+	        android:id="@+id/password"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/userName"
+	        android:layout_below="@+id/userName"
+	        android:ems="10"
+	        android:hint="@string/password"
+	        android:inputType="textPassword"
+	        android:textSize="16sp" />
+	
+	    <TextView
+	        android:id="@+id/TextView01"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/password"
+	        android:layout_below="@+id/password"
+	        android:layout_marginTop="14dp"
+	        android:text="@string/refresh_frecuency"
+	        android:textSize="16sp" />            
+	
+	    <RadioGroup
+		    android:id="@+id/questionFrecuency"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"  
+		    android:layout_below="@+id/TextView01"
+		    android:layout_alignStart="@+id/TextView01"
+		    android:checkedButton="@+id/refreshMinute">
+		    	<RadioButton
+			        android:id="@+id/refreshMinute"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"			        
+			        android:text="@string/minute"
+			        android:textSize="14sp" />
+			    
+			    <RadioButton
+			        android:id="@+id/refreshFiveMinute"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"			       
+			        android:text="@string/five_minute"
+			        android:textSize="14sp" />	
+			        
+			    <RadioButton
+			        android:id="@+id/refreshHourly"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"			        
+			        android:text="@string/hour"
+			        android:textSize="14sp" />		    		    
+	    </RadioGroup>
+	
+	    <CheckBox
+	        android:id="@+id/viewInappropiated"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignRight="@+id/textView1"
+	        android:layout_below="@+id/questionFrecuency"
+	        android:text="@string/view_inappropiated_gift"
+	        android:textSize="16sp" />
+	
+	     <TextView
+	        android:id="@+id/TextView02"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/TextView01"
+	        android:layout_below="@+id/viewInappropiated"
+	        android:text="@string/order_gift_by"
+	        android:textSize="16sp" />
+	     
+	    <RadioGroup
+		    android:id="@+id/questionOrderBy"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"  
+		    android:layout_below="@+id/TextView02"
+		    android:layout_alignStart="@+id/TextView02"
+		    android:checkedButton="@+id/orderGiftsByLikes">
+			    
+			    <RadioButton
+			        android:id="@+id/orderGiftsByLikes"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"			        
+			        android:text="@string/order_by_likes"
+			        android:textSize="14sp" 
+			        />
+			
+			    <RadioButton
+			        android:id="@+id/orderGiftsByDate"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"			        
+			        android:text="@string/order_by_date"
+			        android:textSize="14sp" />
+	    </RadioGroup>
+	    
+	   <Button
+	        android:id="@+id/registerButton"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"	        
+	        android:layout_alignEnd="@+id/password" 
+	        android:layout_below="@+id/questionOrderBy"
+	        android:text="@string/button_save" />
+	
+	</RelativeLayout>
+</ScrollView>

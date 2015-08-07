@@ -1,0 +1,9 @@
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/imageGiftFullScreen" 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:adjustViewBounds="true"
+    android:contentDescription="@string/new_gift_image_desc"
+    android:scaleType="centerCrop"
+    android:src="@drawable/ic_launcher" >
+</ImageView><!-- From: file:/D:/EclipseWorkspaceAndroid/PotlachClient/res/layout/gift_fullscreen.xml -->

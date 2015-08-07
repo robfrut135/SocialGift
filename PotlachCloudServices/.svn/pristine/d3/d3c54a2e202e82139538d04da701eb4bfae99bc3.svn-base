@@ -1,0 +1,5 @@
+# MONGODB (MongoProperties)
+spring.data.mongodb.host=127.0.0.1
+spring.data.mongodb.port=27017
+spring.data.mongodb.uri=mongodb://127.0.0.1:27017/potlach
+#spring.data.mongo.repositories.enabled=true # if spring data repository support is enabled
