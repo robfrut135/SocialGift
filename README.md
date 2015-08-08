@@ -1,5 +1,4 @@
-# SocialGift
-# Capstone project on Mobile Cloud Computing Especialization
+# SocialGift: Capstone project on Mobile Cloud Computing Especialization
 
 The requirements to develop SocialGift were based on this description.
 
