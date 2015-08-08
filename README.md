@@ -22,14 +22,14 @@ There may also be additional project-specific requirements (e.g., required use o
 
 ### Basic Functional Description and App Requirements for Potlatch 
 
-1- A Gift is a unit of data containing an image, a title, and optional accompanying text.
-2- A User can create a Gift by taking a picture (or optionally by selecting an image already stored on the device), entering a title, and optionally typing in accompanying text.
-3- Once the Gift is complete the User can post the Gift to a Gift Chain (which is one or more related Gifts). Gift data is stored to and retrieved from a web-based service accessible in the cloud. The post operation requires an authenticated user account.
-4- Users can view Gifts that have been posted.
-5- Users can do text searches for Gifts. The search is performed only on the Gift's title. Gifts matching the search criterion are returned for user viewing.
-6- Users can indicate that they were touched by a Gift and can also flag Gifts as being obscene or inappropriate. Users can set a preference that prevents the display of Gifts flagged as obscene or inappropriate.
-7- Touched counts are displayed with each Gift. These counts are periodically updated in accordance with a user-specified preference (e.g., Touched counts are updated every 1, 5 or 60 minutes).
-8- Potlatch can display information about the top “Gift givers,” i.e., those whose Gifts have touched the most people.
+* A Gift is a unit of data containing an image, a title, and optional accompanying text.
+* A User can create a Gift by taking a picture (or optionally by selecting an image already stored on the device), entering a title, and optionally typing in accompanying text.
+* Once the Gift is complete the User can post the Gift to a Gift Chain (which is one or more related Gifts). Gift data is stored to and retrieved from a web-based service accessible in the cloud. The post operation requires an authenticated user account.
+* Users can view Gifts that have been posted.
+* Users can do text searches for Gifts. The search is performed only on the Gift's title. Gifts matching the search criterion are returned for user viewing.
+* Users can indicate that they were touched by a Gift and can also flag Gifts as being obscene or inappropriate. Users can set a preference that prevents the display of Gifts flagged as obscene or inappropriate.
+* Touched counts are displayed with each Gift. These counts are periodically updated in accordance with a user-specified preference (e.g., Touched counts are updated every 1, 5 or 60 minutes).
+* Potlatch can display information about the top “Gift givers,” i.e., those whose Gifts have touched the most people.
 
 ### Implementation Considerations  
 
