@@ -2,19 +2,21 @@
 
 ## Social Gift Demostration 
 
+Watch this video:
+
 [![Social Gift Demostration](https://raw.githubusercontent.com/robfrut135/SocialGift/master/PotlachClient/res/drawable-xxxhdpi/ic_launcher.png)](https://drive.google.com/file/d/0BymCGWR0IjzkX3BWeTFhaWc2V3M/view?usp=sharing)
 
-# SocialGift Requirements
+## SocialGift Requirements
 
 The requirements to develop SocialGift were based on this description.
 
-## Potlatch - A Sample Capstone Project 
+### Potlatch - A Sample Capstone Project 
 
 “Happiness is a gift and the trick is not to expect it, but to delight in it when it comes." - Charles Dickens, Nicholas Nickleby
 
 See a sunset that you just can't keep to yourself; a landscape that takes your breath away, an image that touches you personally? Then snap a picture, add some text or poetry to convey your thoughts, and give it to others with Potlatch. Can your thoughts and images touch people around the world? Who is the greatest giver of gifts? Find out with Potlatch. (The word potlatch comes from the Chinook jargon, meaning "to give away" or "a gift" and is a gift-giving feast practiced by indigenous peoples of the Pacific Northwest Coast of Canada and the United States) 
 
-### Basic Project Requirements 
+#### Basic Project Requirements 
 
 - Any potential Capstone project must support multiple users and should leverage services running remotely in the cloud. Each project's specification clearly outlines the app's intended high-level behavior, yet leaves substantial room for individual creativity. Students will therefore need to flesh out many important design and implementation details. Basic requirements for all Capstone MOOC project specifications include: 
 - Apps must support multiple users via individual user accounts. At least one user facing operation must be available only to authenticated users. 
@@ -25,7 +27,7 @@ See a sunset that you just can't keep to yourself; a landscape that takes your b
 - Apps must support at least one operation that is performed off the UI Thread in one or more background Threads or a Thread pool. 
 There may also be additional project-specific requirements (e.g., required use of a particular project-specific API or service). 
 
-### Basic Functional Description and App Requirements for Potlatch 
+#### Basic Functional Description and App Requirements for Potlatch 
 
 * A Gift is a unit of data containing an image, a title, and optional accompanying text.
 * A User can create a Gift by taking a picture (or optionally by selecting an image already stored on the device), entering a title, and optionally typing in accompanying text.
@@ -36,7 +38,7 @@ There may also be additional project-specific requirements (e.g., required use o
 * Touched counts are displayed with each Gift. These counts are periodically updated in accordance with a user-specified preference (e.g., Touched counts are updated every 1, 5 or 60 minutes).
 * Potlatch can display information about the top “Gift givers,” i.e., those whose Gifts have touched the most people.
 
-### Implementation Considerations  
+#### Implementation Considerations  
 
 The Potlatch project specification outlined above is intentionally underspecified to maximize opportunities for student creativity. Students must therefore consider and choose between a number of design and implementation issues and solution alternatives to produce their final product solution. For example, students should consider at least the following issues for this project: 
 * How will Gift data be stored? In your device? In the remote service? 
