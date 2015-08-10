@@ -4,7 +4,7 @@
 
 [![Social Gift Demostration](https://raw.githubusercontent.com/robfrut135/SocialGift/master/PotlachClient/res/drawable-xxxhdpi/ic_launcher.png)](https://drive.google.com/file/d/0BymCGWR0IjzkX3BWeTFhaWc2V3M/view?usp=sharing)
 
-# The requirements to develop SocialGift were based on this description.
+# SocialGift Requirements
 
 The requirements to develop SocialGift were based on this description.
 
