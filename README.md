@@ -8,7 +8,11 @@ Watch this video:
 
 ## Config 
 
-TODO
+Eclipse configuration
+
+https://drive.google.com/file/d/0BymCGWR0IjzkM0VSUGtPa3RqMGM/view?usp=sharing
+
+https://drive.google.com/file/d/0BymCGWR0IjzkZ3hPYTQzdFoyNDA/view?usp=sharing
 
 ## Requirements
 
