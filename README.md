@@ -6,14 +6,6 @@ Watch this video:
 
 [![Social Gift Demostration](https://raw.githubusercontent.com/robfrut135/SocialGift/master/PotlachClient/res/drawable-xxxhdpi/ic_launcher.png)](https://drive.google.com/file/d/0BymCGWR0IjzkX3BWeTFhaWc2V3M/view?usp=sharing)
 
-## Config 
-
-Eclipse configuration
-
-https://drive.google.com/file/d/0BymCGWR0IjzkM0VSUGtPa3RqMGM/view?usp=sharing
-
-https://drive.google.com/file/d/0BymCGWR0IjzkZ3hPYTQzdFoyNDA/view?usp=sharing
-
 ## Requirements
 
 The requirements to develop SocialGift were based on this description.
