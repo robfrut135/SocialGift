@@ -1,5 +1,9 @@
 # SocialGift: Capstone project on Mobile Cloud Computing Especialization
 
+Demo Video 
+
+![Social Gift Demostration](https://drive.google.com/file/d/0BymCGWR0IjzkX3BWeTFhaWc2V3M/view?usp=sharing)
+
 The requirements to develop SocialGift were based on this description.
 
 ## Potlatch - A Sample Capstone Project 
