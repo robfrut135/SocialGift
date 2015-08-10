@@ -6,6 +6,15 @@ Watch this video:
 
 [![Social Gift Demostration](https://raw.githubusercontent.com/robfrut135/SocialGift/master/PotlachClient/res/drawable-xxxhdpi/ic_launcher.png)](https://drive.google.com/file/d/0BymCGWR0IjzkX3BWeTFhaWc2V3M/view?usp=sharing)
 
+## Config
+
+Cloud services configuration
+
+![Config launcher - Main](https://raw.githubusercontent.com/robfrut135/SocialGift/master/PotlachDocumentation/workspace_and_config.png)
+
+![Config launcher - Arguments](https://github.com/robfrut135/SocialGift/blob/master/PotlachDocumentation/workspace_and_config_2.png)
+
+
 ## Requirements
 
 The requirements to develop SocialGift were based on this description.
