@@ -1,8 +1,9 @@
 # SocialGift: Capstone project on Mobile Cloud Computing Especialization
 
 Demo Video 
+[![Alt text for your video](http://img.youtube.com/vi/T-D1KVIuvjA/0.jpg)](http://www.youtube.com/watch?v=T-D1KVIuvjA)
 
-[Social Gift Demostration](https://drive.google.com/file/d/0BymCGWR0IjzkX3BWeTFhaWc2V3M/view?usp=sharing)
+[![Social Gift Demostration]()](https://drive.google.com/file/d/0BymCGWR0IjzkX3BWeTFhaWc2V3M/view?usp=sharing)
 
 The requirements to develop SocialGift were based on this description.
 
